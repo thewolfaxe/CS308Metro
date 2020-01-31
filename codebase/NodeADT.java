@@ -1,18 +1,18 @@
 public abstract class NodeADT {
 	
-	private NodeADT before;
-	private NodeADT after;
+	private NodeADT outbound;
+	private NodeADT inbound;
 	private String id;
 	
 	public NodeADT() {
 		
 	}
 	
-	public NodeADT getBefore() {
+	public NodeADT getOutbound() {
 		return null;
 	}
 	
-	public NodeADT getAfter() {
+	public NodeADT getInbound() {
 		return null;
 	}
 	
