@@ -3,11 +3,11 @@ public class Track implements EdgeInterface {
 	private int weight;
 	private String line;
 	private String inStation;
-	private int inStationID;
+	private String inStationID;
 	private String outStation;
-	private int outStationID;
+	private String outStationID;
 
-	public Track(String line, String inStation, int inStationID, String outStation, int outStationID, int weight)
+	public Track(String line, String inStation, String inStationID, String outStation, String outStationID, int weight)
 	{
 		this.line = line;
 		this.inStation = inStation;
@@ -23,7 +23,7 @@ public class Track implements EdgeInterface {
 	}
 
 	@Override
-	public int getLeftNodeID() {
+	public String getLeftNodeID() {
 		return inStationID;
 	}
 
@@ -34,7 +34,7 @@ public class Track implements EdgeInterface {
 	}
 
 	@Override
-	public int getRightNodeID() {
+	public String getRightNodeID() {
 		return outStationID;
 	}
 

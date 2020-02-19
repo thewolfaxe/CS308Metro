@@ -91,7 +91,7 @@ public class Parser {
 					throw new BadFileException("station is on no lines");
 				}
 
-				Station currentStation = new Station(name, id);
+				Station currentStation = new Station(id, name);
 
 				while (st.hasMoreTokens()) {
 					lineColour = st.nextToken();
