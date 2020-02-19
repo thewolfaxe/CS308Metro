@@ -1,6 +1,6 @@
 public class Station implements NodeInterface {
 	
-	private Integer weight;
+	private int weight;
 	private String id, name;
 	
 	public Station(String id, String name)
@@ -9,8 +9,8 @@ public class Station implements NodeInterface {
 		this.id = id;
 	}
 	
-	public Integer getWeight() {
-		return null;
+	public int getWeight() {
+		return weight;
 	}
 
 	@Override

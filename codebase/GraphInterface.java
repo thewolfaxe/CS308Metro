@@ -1,16 +1,10 @@
+import java.util.LinkedList;
+
 interface GraphInterface
 {
-	public Boolean checkEmpty();
+    //public void addEdge(Station stat1, Station stat2);
 
-	public Integer numVert();
+    public LinkedList<Track> getRoute(Station start, Station finish);
 
-	public Integer numEdge();
-
-	public Boolean checkEdge(Station one, Station two);
-
-	public Integer getDegree(Station Station);
-
-	public Station[] getAdjacent(Station Station);
-
-	public Boolean isAdjacent(Station one, Station two);
+    public boolean checkEdge(Station stat1, Station stat2);
 }

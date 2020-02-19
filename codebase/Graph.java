@@ -1,40 +1,53 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 public class Graph implements GraphInterface {
 
 	//Map<Station, Track> metroGraph = new HashMap<Station, Track>();
-	Map<Station, ArrayList<Track>> metroGraph = new HashMap<>();
+	Map<Station, ArrayList<Track>> metroGraph;
 
-	public Graph()
-	{}
+	public Graph() {
+		metroGraph = new HashMap<>();
+	}
 
-	public Boolean checkEmpty() {
+	public Graph setup() {
+		Parser parse = new Parser();
+		try {
+			metroGraph = parse.loadFile();
+		} catch (IOException | BadFileException e) {
+			e.printStackTrace();
+		}
+
+		return (Graph) metroGraph;
+	}
+
+	@Override
+	public LinkedList<Track> getRoute(Station start, Station finish) {
+		//this needs a dijkstra's algorithm implemented
 		return null;
 	}
 
-	public Integer numVert() {
+	public Track[] edges(Station stat) {
+		//returns an array of tracks connected to this station
 		return null;
 	}
 
-	public Integer numEdge() {
-		return null;
+	@Override
+	public boolean checkEdge(Station stat1, Station stat2) {
+		//checks whether a track exists between the 2 stations
+		return false;
 	}
 
-	public Boolean checkEdge(Station one, Station two) {
-		return null;
+	public int getDegree(Station Station) {
+		//returns the number of tracks connection to this station
+		return 0;
 	}
 
-	public Integer getDegree(Station Station) {
-		return null;
-	}
-
-	public Station[] getAdjacent(Station Station) {
-		return null;
-	}
-
-	public Boolean isAdjacent(Station one, Station two) {
+	public Station[] getAdjacent(Station stat) {
+		//returns an array of stations connected to given station
 		return null;
 	}
 }
