@@ -6,5 +6,7 @@ interface GraphInterface
 
     public LinkedList<Track> getRoute(Station start, Station finish);
 
-    public boolean checkEdge(Station stat1, Station stat2);
+    public Track checkEdge(Station stat1, Station stat2);
+    
+    public Station checkNode(String stationName);
 }
