@@ -35,6 +35,7 @@ public class Controller {
 		Controller controller = new Controller();
 		controller.setup();
 
+		
 		//loop for entering stations and showing route
 		//should do something along the lines of
 		//getCurrent()

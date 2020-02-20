@@ -64,7 +64,7 @@ public class Parser {
 
 		try (BufferedReader reader = new BufferedReader(new FileReader("bostonMetro.txt"))) {
 			String line = reader.readLine();
-			Scanner scan;
+			int weight;
 			String id, name, lineColour, inStation, outStation;
 			StringTokenizer st;
 			while (line != null) {
@@ -105,11 +105,21 @@ public class Parser {
 					if (!st.hasMoreTokens()) {
 						throw new BadFileException("poorly formatted adjacent stations");
 					}
+					
 					inStation = st.nextToken();
-					Track currentTrack = new Track(lineColour, outStation, inStation);	//i've changed this to include weights
-					tracks.add(currentTrack);
-					metroGraph.put(currentStation, tracks);
+					
+					if (!st.hasMoreTokens()) {
+						throw new BadFileException("poorly formatted adjacent stations");
+					}
+					
+					weight = Integer.parseInt(st.nextToken());
+					
+					Track inTrack = new Track(lineColour, inStation, id, weight);	//i've changed this to include weights
+					Track outTrack = new Track(lineColour, id, outStation, weight);
+					tracks.add(inTrack);
+					tracks.add(outTrack);
 				}
+				metroGraph.put(currentStation, tracks);
 				line = reader.readLine();
 			}
 		}

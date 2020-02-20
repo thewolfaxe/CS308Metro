@@ -7,7 +7,7 @@ public class UserView {
 	}
 	
 	public Station getCurrentNode() {
-		//scan in from cmd and return current station
+		Scanner scanner = new Scanner(System.in);
 		return null;
 	}
 	

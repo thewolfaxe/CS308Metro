@@ -41,18 +41,18 @@ public class Graph implements GraphInterface {
 		ArrayList<Track> tracks1 = metroGraph.get(stat1);
 		ArrayList<Track> tracks2 = metroGraph.get(stat2);
 		for (Track x : tracks1) {
-			if(x.getRightNodeID() == stat2.getID()) {
+			if(x.getRightNode() == stat2.getID()) {
 				return true;
 			}
-			if(x.getLeftNodeID() == stat2.getID()) {
+			if(x.getLeftNode() == stat2.getID()) {
 				return true;
 			}
 		}
 		for (Track y : tracks2) {
-			if(y.getRightNodeID() == stat2.getID()) {
+			if(y.getRightNode() == stat2.getID()) {
 				return true;
 			}
-			if(y.getLeftNodeID() == stat2.getID()) {
+			if(y.getLeftNode() == stat2.getID()) {
 				return true;
 			}
 		}
