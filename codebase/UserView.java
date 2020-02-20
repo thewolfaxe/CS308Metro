@@ -6,14 +6,28 @@ public class UserView {
 		
 	}
 	
-	public Station getCurrentNode() {
+	public String getCurrentNode() {
 		Scanner scanner = new Scanner(System.in);
-		return null;
+		System.out.println("Please enter your current station.");
+		String answer = scanner.nextLine();
+		scanner.close();
+		return answer;
 	}
 	
-	public Station getDestination() {
-		//scan in from cmd and return destination station
-		return null;
+	public String getDestination() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Please enter your destination station");
+		String answer = scanner.nextLine();
+		scanner.close();
+		return answer;
+	}
+	
+	public String getExit() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Please enter your destination station");
+		String answer = scanner.nextLine();
+		scanner.close();
+		return answer;
 	}
 	
 	public void displayRoute(LinkedList<Track> route) {

@@ -36,27 +36,27 @@ public class Graph implements GraphInterface {
 	}
 
 	@Override
-	public boolean checkEdge(Station stat1, Station stat2) {
+	public Track checkEdge(Station stat1, Station stat2) {
 		//checks whether a track exists between the 2 stations
 		ArrayList<Track> tracks1 = metroGraph.get(stat1);
 		ArrayList<Track> tracks2 = metroGraph.get(stat2);
 		for (Track x : tracks1) {
 			if(x.getRightNode() == stat2.getID()) {
-				return true;
+				return x;
 			}
 			if(x.getLeftNode() == stat2.getID()) {
-				return true;
+				return x;
 			}
 		}
 		for (Track y : tracks2) {
 			if(y.getRightNode() == stat2.getID()) {
-				return true;
+				return y;
 			}
 			if(y.getLeftNode() == stat2.getID()) {
-				return true;
+				return y;
 			}
 		}
-		return false;
+		return null;
 	}
 
 	public int getDegree(Station Station) {
@@ -68,10 +68,20 @@ public class Graph implements GraphInterface {
 		//returns an array of stations connected to given station
 		ArrayList<Station> stations = new ArrayList<>();
 		for (Map.Entry<Station, ArrayList<Track>> entry : metroGraph.entrySet()) {
-			if (checkEdge(stat, entry.getKey())) {
+			if (checkEdge(stat, entry.getKey()) != null) {
 				stations.add(entry.getKey());
 			}
 		}
 		return stations;
+	}
+	
+	@Override
+	public Station checkNode(String stationName) {
+		for (Map.Entry<Station, ArrayList<Track>> entry : metroGraph.entrySet()) {
+			if(entry.getKey().getName() == stationName) {
+				return entry.getKey();
+			}
+		}
+		return null;
 	}
 }
