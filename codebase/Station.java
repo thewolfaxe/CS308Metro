@@ -7,6 +7,7 @@ public class Station implements NodeInterface {
 	{
 		this.name = name;
 		this.id = id;
+		this.weight = 15;
 	}
 	
 	public int getWeight() {

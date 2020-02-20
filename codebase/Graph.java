@@ -1,8 +1,5 @@
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 public class Graph implements GraphInterface {
 
@@ -26,7 +23,30 @@ public class Graph implements GraphInterface {
 
 	@Override
 	public LinkedList<Track> getRoute(Station start, Station finish) {
-		//this needs a dijkstra's algorithm implemented
+		Queue<Station> agenda = new ArrayDeque<>();
+		HashMap<Station, Station> ancestors = new HashMap<>();
+		agenda.add(start);
+		Station current;
+
+		while(!agenda.isEmpty()){
+			current = agenda.remove();
+
+			if(current == start) {
+				System.out.println("\n\nFound the station\n\n");
+				return null;
+			}
+
+			ArrayList<Station> temp = getAdjacent(current);
+			for(Station stat: temp) {
+				if(!ancestors.containsKey(stat)) {
+					ancestors.put(stat, current);
+				}
+			}
+
+
+		}
+
+
 		return null;
 	}
 
@@ -41,18 +61,18 @@ public class Graph implements GraphInterface {
 		ArrayList<Track> tracks1 = metroGraph.get(stat1);
 		ArrayList<Track> tracks2 = metroGraph.get(stat2);
 		for (Track x : tracks1) {
-			if(x.getRightNode() == stat2.getID()) {
+			if(x.getRightNode().equals(stat2.getID())) {
 				return true;
 			}
-			if(x.getLeftNode() == stat2.getID()) {
+			if(x.getLeftNode().equals(stat2.getID())) {
 				return true;
 			}
 		}
 		for (Track y : tracks2) {
-			if(y.getRightNode() == stat2.getID()) {
+			if(y.getRightNode().equals(stat2.getID())) {
 				return true;
 			}
-			if(y.getLeftNode() == stat2.getID()) {
+			if(y.getLeftNode().equals(stat2.getID())) {
 				return true;
 			}
 		}
