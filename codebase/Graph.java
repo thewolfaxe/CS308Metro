@@ -9,19 +9,9 @@ public class Graph implements GraphInterface {
 	//Map<Station, Track> metroGraph = new HashMap<Station, Track>();
 	Map<Station, ArrayList<Track>> metroGraph;
 
-	public Graph() {
+	public Graph(Map<Station, ArrayList<Track>> map) {
 		metroGraph = new HashMap<>();
-	}
-
-	public Graph setup() {
-		Parser parse = new Parser();
-		try {
-			metroGraph = parse.loadFile();
-		} catch (IOException | BadFileException e) {
-			e.printStackTrace();
-		}
-
-		return (Graph) metroGraph;
+		metroGraph = map;
 	}
 
 	@Override
@@ -30,9 +20,14 @@ public class Graph implements GraphInterface {
 		return null;
 	}
 
-	public ArrayList<Track> edges(Station stat) {
+	public ArrayList<Track> getEdges(Station stat) {
 		//returns an array of tracks connected to this station
-		return metroGraph.get(stat);
+		for (Map.Entry<Station, ArrayList<Track>> entry : metroGraph.entrySet()) {
+			if (entry.getKey().getName().equals(stat.getName())) {
+				return metroGraph.get(stat);
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -61,7 +56,12 @@ public class Graph implements GraphInterface {
 
 	public int getDegree(Station Station) {
 		//returns the number of tracks connection to this station
-		return metroGraph.get(Station).size();
+		for (Map.Entry<Station, ArrayList<Track>> entry : metroGraph.entrySet()) {
+			if (entry.getKey().getName().equals(Station.getName())) {
+				return metroGraph.get(Station).size();
+			}
+		}
+		return -1;
 	}
 
 	public ArrayList<Station> getAdjacent(Station stat) {
@@ -78,7 +78,7 @@ public class Graph implements GraphInterface {
 	@Override
 	public Station checkNode(String stationName) {
 		for (Map.Entry<Station, ArrayList<Track>> entry : metroGraph.entrySet()) {
-			if(entry.getKey().getName() == stationName) {
+			if(entry.getKey().getName().toLowerCase().equals(stationName)) {
 				return entry.getKey();
 			}
 		}
