@@ -45,7 +45,7 @@ import java.util.*;
      */
 
 public class Parser {
-	public static void main(String args[]) throws IOException, BadFileException {
+	/*public static void main(String args[]) throws IOException, BadFileException {
 		Parser parse = new Parser();
 		parse.loadFile();
 	}
@@ -102,16 +102,30 @@ public class Parser {
 					outStation = st.nextToken();
 
 					if (!st.hasMoreTokens()) {
-						throw new BadFileException("poorly formatted adjacent stations");
+						throw new BadFileException("poorly formatted adjacent stations1");
 					}
 					
 					inStation = st.nextToken();
 					
-					if (!st.hasMoreTokens()) {
-						throw new BadFileException("poorly formatted adjacent stations");
+					switch(lineColour) {
+						case "Orange": 
+							weight = 1;
+							break;
+						case "Blue":
+							weight = 2;
+							break;
+						case "Green":
+							weight = 3;
+							break;
+						case "Red":
+							weight = 4;
+							break;
+						case "Mattapan":
+							weight = 5;
+							break;
+						default:
+							weight = 0;
 					}
-					
-					weight = Integer.parseInt(st.nextToken());
 					
 					Track inTrack = new Track(lineColour, inStation, id, weight);	//i've changed this to include weights
 					Track outTrack = new Track(lineColour, id, outStation, weight);
@@ -122,11 +136,6 @@ public class Parser {
 				line = reader.readLine();
 			}
 		}
-//		Iterator<Station> itr = metroGraph.keySet().iterator();
-//		while (itr.hasNext()) {
-//			System.out.println(metroGraph);
-//		}
-		System.out.println("I get here");
 		return metroGraph;
 	}
 }

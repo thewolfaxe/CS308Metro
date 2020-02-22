@@ -5,11 +5,11 @@ public class Track implements EdgeInterface {
 	private String inStation;
 	private String outStation;
 
-	public Track(String line, String inStationID, String outStationID, int weight)
+	public Track(String line, String leftStationID, String rightStationID, int weight)
 	{
 		this.line = line;
-		this.inStation = inStationID;
-		this.outStation = outStationID;
+		this.inStation = leftStationID;
+		this.outStation = rightStationID;
 		this.weight = 1;
 	}
 
@@ -28,7 +28,8 @@ public class Track implements EdgeInterface {
 		return weight;
 	}
 
+	@Override
 	public String getLine() {
-		return line;
+		return this.line;
 	}
 }

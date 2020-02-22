@@ -1,32 +1,37 @@
 import java.util.*;
 
 public class UserView {
+	private Scanner scanner;
 	
 	public UserView() {
+		scanner = new Scanner(System.in);
 		
 	}
 	
 	public String getCurrentNode() {
-		Scanner scanner = new Scanner(System.in);
+		String answer = "";
 		System.out.println("Please enter your current station.");
-		String answer = scanner.nextLine();
-		scanner.close();
+		if(scanner.hasNextLine()) {
+			answer = scanner.nextLine();
+		}
 		return answer;
 	}
 	
 	public String getDestination() {
-		Scanner scanner = new Scanner(System.in);
+		String answer = "";
 		System.out.println("Please enter your destination station");
-		String answer = scanner.nextLine();
-		scanner.close();
+		if(scanner.hasNextLine()) {
+			answer = scanner.nextLine();
+		}
 		return answer;
 	}
 	
 	public String getExit() {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Please enter your destination station");
-		String answer = scanner.nextLine();
-		scanner.close();
+		String answer = "";
+		System.out.println("Would you like to search another route? yes/no");
+		if(scanner.hasNextLine()) {
+			answer = scanner.nextLine();
+		}
 		return answer;
 	}
 	

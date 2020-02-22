@@ -9,6 +9,8 @@
 .idea/**/shelf
 .idea/**/vcs.xml
 .idea/**/misc.xml
+.classpath
+.project
 
 # Generated files
 .idea/**/contentModel.xml

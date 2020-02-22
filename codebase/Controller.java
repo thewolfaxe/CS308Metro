@@ -1,28 +1,50 @@
+import java.io.IOException;
 import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class Controller {
 	
-	private Station current;
-	private Station destination;
-	private Graph graph;
-	private UserView view;
+	private static Station current;
+	private static Station destination;
+	private static Graph graph;
+	private static UserView view;
 	
 	public Controller() {
-		graph = new Graph();
 		view = new UserView();
+	}
+	
+	public static void main(String[] args) {
+		Controller controller = new Controller();
+		controller.setup();
+		boolean exit = false;
+		
+		while(!exit) {
+			getCurrent();
+			getDestination();
+			getRoute(graph);
+			exit = getExit();
+		}
 	}
 	
 	public void setup() {
 		System.out.println("Setting up graph");
-		graph = graph.setup();
+		Parser parse = new Parser();
+		try {
+			Map<Station, ArrayList<Track>> metroGraph = parse.loadFile();
+			graph = new Graph(metroGraph);
+		} catch (IOException | BadFileException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public void getCurrent() {
+	public static void getCurrent() {
 		String currentString;
 		boolean test = false;
 		
 		while(!test) {
 			currentString = view.getCurrentNode();
+			currentString = currentString.replaceAll("\\s", "").toLowerCase();
 			if (graph.checkNode(currentString) != null) {
 				test = true;
 				current = graph.checkNode(currentString);
@@ -34,12 +56,13 @@ public class Controller {
 		
 	}
 	
-	public void getDestination() {
+	public static void getDestination() {
 		String currentString;
 		boolean test = false;
 		
 		while(!test) {
 			currentString = view.getDestination();
+			currentString = currentString.replaceAll("\\s", "").toLowerCase();
 			if (graph.checkNode(currentString) != null) {
 				test = true;
 				destination = graph.checkNode(currentString);
@@ -50,43 +73,29 @@ public class Controller {
 		}
 	}
 	
-	public boolean getExit() {
+	public static boolean getExit() {
 		String currentString;
 		boolean test = false;
 		
 		while(!test) {
 			currentString = view.getExit();
-			if (currentString == "yes") {
+			currentString = currentString.replaceAll("\\s", "").toLowerCase();
+			if (currentString.equals("yes")) {
 				return false;
 			}
-			if (currentString == "no") {
+			else if (currentString.equals("no")) {
 				return true;
 			}
+			else {
+				System.out.println("Please enter \"yes\" or \"no\".");
+			}
 		}
+		return false;
 	}
 	
-	public void getRoute(Graph graph) {
+	public static void getRoute(Graph graph) {
 		LinkedList<Track> route = graph.getRoute(current, destination);
 
 		view.displayRoute(route);
-	}
-
-	public void main(String[] args) {
-		Controller controller = new Controller();
-		controller.setup();
-		boolean exit = false;
-		
-		while(!exit) {
-			getCurrent();
-			getDestination();
-			getRoute(graph);
-			
-		}
-		//loop for entering stations and showing route
-		//should do something along the lines of
-		//getCurrent()
-		//getDestinations
-		//getRoute()
-		//displayRoute()
 	}
 }
