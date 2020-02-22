@@ -97,7 +97,6 @@ public class Graph implements GraphInterface {
 
 //		for(Map.Entry<Station, Station> entry: ancestors.entrySet()) {
 //			System.out.println("" + entry.getKey().getName() + ", " + entry.getValue().getName());
-//
 //		}
 
 		while (current != start) {
