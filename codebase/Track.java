@@ -27,4 +27,9 @@ public class Track implements EdgeInterface {
 	public int getWeight() {
 		return weight;
 	}
+
+	@Override
+	public String getLine() {
+		return this.line;
+	}
 }
