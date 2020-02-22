@@ -31,7 +31,7 @@ public class Controller {
 		System.out.println("Setting up graph");
 		Parser parse = new Parser();
 		try {
-			Map<Station, ArrayList<Track>> metroGraph = parse.loadFile();
+			Map<Station, ArrayList<Track>> metroGraph = parse.loadFile("bostonMetro.txt");
 			graph = new Graph(metroGraph);
 		} catch (IOException | BadFileException e) {
 			e.printStackTrace();

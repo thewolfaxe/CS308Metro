@@ -1,0 +1,7 @@
+1 Hamilton			Pink 0 3
+2 Airbles			Green 0 3
+3 Motherwell		Pink 1 6 Green 2 4
+4 Uddingston		Green 3 5 
+5 Glasgow			Green 0 4
+
+6 Wishaw			Pink 0 3
