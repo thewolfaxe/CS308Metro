@@ -11,7 +11,7 @@ public class Controller {
 	private static UserView view;
 	
 	public Controller() {
-		view = new UserView();
+		view = new UserView(System.in);
 	}
 	
 	public static void main(String[] args) {
