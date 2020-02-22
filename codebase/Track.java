@@ -10,7 +10,7 @@ public class Track implements EdgeInterface {
 		this.line = line;
 		this.inStation = inStationID;
 		this.outStation = outStationID;
-		this.weight = weight;
+		this.weight = 1;
 	}
 
 	@Override
@@ -26,5 +26,9 @@ public class Track implements EdgeInterface {
 	@Override
 	public int getWeight() {
 		return weight;
+	}
+
+	public String getLine() {
+		return line;
 	}
 }

@@ -29,10 +29,13 @@ public class Graph implements GraphInterface {
 		Station current;
 
 		while(!agenda.isEmpty()){
-			current = agenda.remove();
 
-			if(current == start) {
+			current = findShortest(agenda, ancestors, start);
+
+			if(current == finish) {
 				System.out.println("\n\nFound the station\n\n");
+				ArrayList<Station> route = buildRoute(ancestors, current, finish);
+				System.out.println(route.toString());
 				return null;
 			}
 
@@ -42,12 +45,57 @@ public class Graph implements GraphInterface {
 					ancestors.put(stat, current);
 				}
 			}
-
-
 		}
 
 
 		return null;
+	}
+
+	public Station findShortest(Queue<Station> agenda, HashMap<Station, Station> ancestors, Station start) {
+		int best = -1;		//init best
+		Station shortest = agenda.peek();		//init shortest station as the first in the agenda
+
+		//loop through agenda and find the shortest path so far
+		for(Station stat: agenda) {
+			int attempt = pathSoFar(ancestors, stat, start);
+			if(attempt < best || best == -1) {
+				best = attempt;
+				shortest = stat;
+			}
+		}
+		return shortest;
+	}
+
+	public int pathSoFar(HashMap<Station, Station> ancestors, Station current, Station start) {
+		int total = 0;
+		Station previous = current;
+		String line, prevLine = null;
+		while(current != start) {
+			++total;
+			current = ancestors.get(current);
+			line = checkEdge(previous, current).getLine();
+
+			if(prevLine != null)
+				if(!prevLine.equals(line))
+					total += current.getWeight();
+
+			prevLine = line;
+			previous = current;
+		}
+		++total;
+		return total;
+	}
+
+	public ArrayList<Station> buildRoute(HashMap<Station, Station> ancestors, Station current, Station start) {
+		ArrayList<Station> route = new ArrayList<>();
+
+		while (current != start) {
+			route.add(current);
+			current = ancestors.get(current);
+		}
+
+		Collections.reverse(route);
+		return route;
 	}
 
 	public ArrayList<Track> edges(Station stat) {
@@ -57,22 +105,25 @@ public class Graph implements GraphInterface {
 
 	@Override
 	public Track checkEdge(Station stat1, Station stat2) {
+		if(stat1 == stat2)
+			return null;
+
 		//checks whether a track exists between the 2 stations
 		ArrayList<Track> tracks1 = metroGraph.get(stat1);
 		ArrayList<Track> tracks2 = metroGraph.get(stat2);
 		for (Track x : tracks1) {
-			if(x.getRightNode() == stat2.getID()) {
+			if(x.getRightNode().equals(stat2.getID())) {
 				return x;
 			}
-			if(x.getLeftNode() == stat2.getID()) {
+			if(x.getLeftNode().equals(stat2.getID())) {
 				return x;
 			}
 		}
 		for (Track y : tracks2) {
-			if(y.getRightNode() == stat2.getID()) {
+			if(y.getRightNode().equals(stat2.getID())) {
 				return y;
 			}
-			if(y.getLeftNode() == stat2.getID()) {
+			if(y.getLeftNode().equals(stat2.getID())) {
 				return y;
 			}
 		}
