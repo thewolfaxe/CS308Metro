@@ -75,7 +75,7 @@ public class Graph implements GraphInterface {
 	}
 	
 	@Override
-	public Station checkNode(String stationName) {
+	public Station getNode(String stationName) {
 		for (Map.Entry<Station, ArrayList<Track>> entry : metroGraph.entrySet()) {
 			if(entry.getKey().getName().toLowerCase().equals(stationName)) {
 				return entry.getKey();

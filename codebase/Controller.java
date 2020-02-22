@@ -20,8 +20,8 @@ public class Controller {
 		boolean exit = false;
 		
 		while(!exit) {
-			getCurrent();
-			getDestination();
+			current = getStation();
+			destination = getStation();
 			getRoute(graph);
 			exit = getExit();
 		}
@@ -38,64 +38,36 @@ public class Controller {
 		}
 	}
 	
-	public static void getCurrent() {
-		String currentString;
-		boolean test = false;
-		
-		while(!test) {
-			currentString = view.getCurrentNode();
-			currentString = currentString.replaceAll("\\s", "").toLowerCase();
-			if (graph.checkNode(currentString) != null) {
-				test = true;
-				current = graph.checkNode(currentString);
+	public static Station getStation() {
+		while(true) {
+			String stationName = view.getCurrentNode();
+			stationName = stationName.replaceAll("\\s", "").toLowerCase();
+			Station station = graph.getNode(stationName);
+			if (station != null) {
+				return station;
 			}
-			else {
-				System.out.println("That station does not exist.");
-			}
-		}
-		
-	}
-	
-	public static void getDestination() {
-		String currentString;
-		boolean test = false;
-		
-		while(!test) {
-			currentString = view.getDestination();
-			currentString = currentString.replaceAll("\\s", "").toLowerCase();
-			if (graph.checkNode(currentString) != null) {
-				test = true;
-				destination = graph.checkNode(currentString);
-			}
-			else {
-				System.out.println("That station does not exist.");
-			}
+			System.out.println("That station does not exist.");
 		}
 	}
 	
 	public static boolean getExit() {
-		String currentString;
-		boolean test = false;
-		
-		while(!test) {
-			currentString = view.getExit();
-			currentString = currentString.replaceAll("\\s", "").toLowerCase();
-			if (currentString.equals("yes")) {
+		while(true) {
+			String shouldContinue = view.getExit();
+			shouldContinue = shouldContinue.replaceAll("\\s", "").toLowerCase();
+			if (shouldContinue.equals("yes")) {
 				return false;
 			}
-			else if (currentString.equals("no")) {
+			else if (shouldContinue.equals("no")) {
 				return true;
 			}
 			else {
 				System.out.println("Please enter \"yes\" or \"no\".");
 			}
 		}
-		return false;
 	}
 	
 	public static void getRoute(Graph graph) {
 		LinkedList<Track> route = graph.getRoute(current, destination);
-
 		view.displayRoute(route);
 	}
 }

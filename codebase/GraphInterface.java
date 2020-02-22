@@ -8,5 +8,5 @@ interface GraphInterface
 
     public Track checkEdge(Station stat1, Station stat2);
     
-    public Station checkNode(String stationName);
+    public Station getNode(String stationName);
 }
