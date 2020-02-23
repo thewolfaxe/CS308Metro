@@ -39,5 +39,10 @@ public class UserView {
 		//display the route by going through the linked list,
 		//apparently this needs to give pretty detailed full sentence
 		//instructions about stations and stuff
+		System.out.println("Number of stations on your route: " + (route.size() + 1));
+		System.out.println("Your route is:");
+		for(Track track: route) {
+			System.out.println("Leaving: " + track.getLeaving() + ", arriving: " + track.getArriving() + ", on line: " + track.getLine());
+		}
 	}
 }

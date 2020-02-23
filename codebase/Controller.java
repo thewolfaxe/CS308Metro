@@ -25,6 +25,7 @@ public class Controller {
 			getRoute(graph);
 			exit = getExit();
 		}
+		System.out.println("Thank you for using this boston metro map search.\nQuitting...");
 	}
 	
 	public void setup() {
