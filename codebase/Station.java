@@ -24,4 +24,23 @@ public class Station implements NodeInterface {
 	public String getName() {
 		return name;
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (!(other instanceof Station))
+			return false;
+		Station otherStation = (Station)other;
+		return id.equals(otherStation.getID()) &&
+				name.equals(otherStation.getName()) &&
+				weight == otherStation.getWeight();
+	}
+	
+	@Override
+	public int hashCode() {
+		int hash = 11;
+		hash = 17 * hash + id.hashCode();
+		hash = 17 * hash + name.hashCode();
+		hash = 17 * hash + weight;
+		return hash;
+	}
 }

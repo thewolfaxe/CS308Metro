@@ -49,4 +49,37 @@ public class Track implements EdgeInterface {
 	public String getArriving() {
 		return arriving;
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (!(other instanceof Track))
+			return false;
+		Track otherTrack = (Track)other;
+		boolean equal = line.equals(otherTrack.getLine()) &&
+				inStationID.equals(otherTrack.getLeftNode()) &&
+				outStationID.equals(otherTrack.getRightNode()) &&
+				weight == otherTrack.getWeight() &&
+				(leaving == null && otherTrack.getLeaving() == null ||
+				leaving.equals(otherTrack.getLeaving())) &&
+				(arriving == null && otherTrack.getArriving() == null ||
+				arriving.equals(otherTrack.getArriving()));
+		return equal;
+	}
+	
+	@Override
+	public int hashCode() {
+		int hash = 11;
+		hash = 17 * hash + line.hashCode();
+		hash = 17 * hash + inStationID.hashCode();
+		hash = 17 * hash + outStationID.hashCode();
+		hash = 17 * hash + weight;
+		
+		if (leaving != null)
+			hash = 17 * hash + leaving.hashCode();
+		
+		if (arriving != null)
+			hash = 17 * hash + arriving.hashCode();
+		
+		return hash;
+	}
 }

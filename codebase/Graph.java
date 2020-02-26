@@ -155,9 +155,10 @@ public class Graph implements GraphInterface {
 		}
 		return stations;
 	}
-
+	
+	@Override
 	//checks whether a node with a given station name exists or not
-	public Station checkNode(String stationName) {
+	public Station getNode(String stationName) {
 		for (Map.Entry<Station, ArrayList<Track>> entry : metroGraph.entrySet()) {
 			if(entry.getKey().getName().toLowerCase().equals(stationName)) {
 				return entry.getKey();

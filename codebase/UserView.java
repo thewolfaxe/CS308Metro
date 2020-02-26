@@ -1,11 +1,11 @@
+import java.io.InputStream;
 import java.util.*;
 
 public class UserView {
 	private Scanner scanner;
 	
-	public UserView() {
-		scanner = new Scanner(System.in);
-		
+	public UserView(InputStream inputStream) {
+		scanner = new Scanner(inputStream);
 	}
 	
 	public String getCurrentNode() {

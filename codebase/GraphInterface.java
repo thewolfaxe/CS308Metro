@@ -1,8 +1,10 @@
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 
 interface GraphInterface
 {
     LinkedList<Track> getRoute(Station start, Station finish);
+
+    Track checkEdge(Station stat1, Station stat2);
+    
+    Station getNode(String stationName);
 }
