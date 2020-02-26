@@ -1,6 +1,5 @@
 public interface EdgeInterface {
-	public String getLeftNode();
-	public String getRightNode();
-	public int getWeight();
-	public String getLine();
+	String getLeftNode();
+	String getRightNode();
+	int getWeight();
 }

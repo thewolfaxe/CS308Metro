@@ -1,0 +1,10 @@
+The source code can be found within the codebase folder
+
+Running the code
+
+	Via the .jar:
+		I know it doesn't work with java 8 (1.8) and does work with java 13, I'm not 		sure about inbetween versions
+		command: java -jar Graphs.jar
+
+	Straight from the source code:
+		Run the main in the controller class

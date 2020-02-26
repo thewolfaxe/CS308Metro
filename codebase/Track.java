@@ -30,7 +30,6 @@ public class Track implements EdgeInterface {
 		return weight;
 	}
 
-	@Override
 	public String getLine() {
 		return this.line;
 	}

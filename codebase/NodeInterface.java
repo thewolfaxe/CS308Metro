@@ -1,4 +1,4 @@
 interface NodeInterface {
-	public String getID();
-	public String getName();
+	String getID();
+	String getName();
 }
