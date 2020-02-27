@@ -143,15 +143,6 @@ public class Graph implements GraphInterface {
 		return linkedRoute;
 	}
 
-	//returns an array of tracks connected to a given station
-	public ArrayList<Edge> getEdges(Node stat) {
-		for (Map.Entry<Node, ArrayList<Edge>> entry : metroGraph.entrySet()) {
-			if (entry.getKey().getName().equals(stat.getName())) {
-				return metroGraph.get(stat);
-			}
-		}
-		return null;
-	}
 
 	//checks whether or not an edge exits between two stations, returns the edge if it does exist
 	public ArrayList<Edge> checkEdge(Node stat1, Node stat2) {
