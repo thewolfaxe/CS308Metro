@@ -82,7 +82,7 @@ public class UserView {
 				System.out.println("Leaving: " + simpleRoute.get(i).getLeaving() + ", arriving: " + simpleRoute.get(i+1).getArriving() + ", on line: " + simpleRoute.get(i).getLine());
 			}
 			else {
-				System.out.println("Leaving: " + simpleRoute.get(i).getLeaving() + ", arriving: " + simpleRoute.get(i+1).getLeaving() + ", on line: " + simpleRoute.get(i).getLine());
+				System.out.println("Leave: " + simpleRoute.get(i).getLeaving() + " : on " + simpleRoute.get(i).getLine() + " line, then change to " + simpleRoute.get(i+1).getLine() + " line at " + simpleRoute.get(i+1).getLeaving());
 			}
 		}
 	}
@@ -91,12 +91,23 @@ public class UserView {
 		//display the route by going through the linked list,
 		//apparently this needs to give pretty detailed full sentence
 		//instructions about stations and stuff
+		String line = route.get(0).getLine();
 		System.out.println(" ");
 		System.out.println("Number of stations on your route: " + (route.size() + 1));
 		System.out.println("Your route is:");
 		System.out.println(" ");
-		for(Edge track: route) {
-			System.out.println("Leaving: " + track.getLeaving() + ", arriving: " + track.getArriving() + ", on line: " + track.getLine());
+		System.out.println("Start on " + line + " line:");
+		for(int i = 0; i < route.size() - 1; i++) {
+			if(route.get(i).getLine().equals(route.get(i+1).getLine())) {
+				System.out.println("Leave: " + route.get(i).getLeaving() + " and go through " + route.get(i).getArriving() + ", on line: " + route.get(i).getLine());
+			}
+			else {
+				System.out.println("Leave: " + route.get(i).getLeaving() + " : on " + route.get(i).getLine() + " line, then change to " + route.get(i+1).getLine() + " line at " + route.get(i).getArriving());
+				System.out.println(" ");
+				line = route.get(i+1).getLine();
+				System.out.println("Change to " + line + " line:");
+			}
+			
 		}
 	}
 }

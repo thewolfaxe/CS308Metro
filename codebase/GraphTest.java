@@ -58,7 +58,7 @@ class GraphTest {
 		Node notAStation = new Node("125", "notastation");
 		assertNull(graph.checkEdge(station1, station1));
 		assertNull(graph.checkEdge(notAStation, station1));
-		assertNull(graph.checkEdge(station2, notAStation));
+		assertNull(graph.checkEdge(station2, notAStation));	
 	}
 	
 	@Test
