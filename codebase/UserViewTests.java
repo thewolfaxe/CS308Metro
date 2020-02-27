@@ -48,6 +48,14 @@ class UserViewTests {
 		assertEquals(expectedAnswer, actualAnswer);
 	}
 	
+	@Test
+	void getCurrentLineTest() throws Exception {
+		String expectedAnswer = "GreenB";
+		InputStream testInput = new ByteArrayInputStream( expectedAnswer.getBytes("UTF-8"));
+		UserView view = new UserView(testInput);
+		String actualAnswer = view.getCurrentLine();
+		assertEquals(expectedAnswer, actualAnswer);
+	}
 	
 	
 	
