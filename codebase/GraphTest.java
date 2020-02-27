@@ -35,18 +35,6 @@ class GraphTest {
 		
 	}
 	
-	@Test
-	void getEdgesTest() throws Exception
-	{
-		ArrayList<Edge> tracks = new ArrayList<>();
-		Edge track1 = new Edge("Orange", "82", "93", 1);
-		Edge track2 = new Edge("Orange", "64", "82", 1);
-		tracks.add(track1);
-		tracks.add(track2);
-		assertTrue(tracks.containsAll(graph.getEdges(graph.getNode("ruggles"))));
-		Node notAStation = new Node("125", "notastation");
-		assertNull(graph.getEdges(notAStation));
-	}
 	
 	@Test
 	void checkEdgeTest() throws Exception

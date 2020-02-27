@@ -97,8 +97,12 @@ public class UserView {
 		System.out.println("Your route is:");
 		System.out.println(" ");
 		System.out.println("Start on " + line + " line:");
-		for(int i = 0; i < route.size() - 1; i++) {
-			if(route.get(i).getLine().equals(route.get(i+1).getLine())) {
+		for(int i = 0; i < route.size() -1; i++) {
+			if(i == route.size() - 2) {
+				System.out.println("Leave: " + route.get(i).getLeaving() + " and go through " + route.get(i).getArriving() + ", on line: " + route.get(i).getLine());
+				System.out.println("Leave: " + route.get(i).getArriving() + " and arrive at " + route.get(i+1).getArriving());
+			}
+			else if(route.get(i).getLine().equals(route.get(i+1).getLine())) {
 				System.out.println("Leave: " + route.get(i).getLeaving() + " and go through " + route.get(i).getArriving() + ", on line: " + route.get(i).getLine());
 			}
 			else {
