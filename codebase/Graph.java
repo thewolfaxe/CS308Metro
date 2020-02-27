@@ -205,10 +205,7 @@ public class Graph implements GraphInterface {
 				found ++;
 			}
 		}
-		if(found > 1) {
-			return true;
-		}
-		return false;
+		return found > 1;
 	}
 	
 	public Node getNodeByLine(String stationName, String line) {

@@ -20,10 +20,10 @@ public class Controller {
 		boolean exit = false;
 		
 		while(!exit) {
-			current = getStartStation();
-			destination = getEndStation();
-			getRoute(graph);
-			exit = getExit();
+			current = controller.getStartStation();
+			destination = controller.getEndStation();
+			controller.getRoute(graph);
+			exit = controller.getExit();
 		}
 		System.out.println(" ");
 		System.out.println("############################################################");
@@ -45,7 +45,7 @@ public class Controller {
 		}
 	}
 	
-	public static Node getStartStation() {
+	public Node getStartStation() {
 		while(true) {
 			Node station;
 			String stationName = view.getCurrentNode();
@@ -68,7 +68,7 @@ public class Controller {
 		}
 	}
 	
-	public static Node getEndStation() {
+	public Node getEndStation() {
 		while(true) {
 			Node station;
 			String stationName = view.getDestination();
@@ -91,7 +91,7 @@ public class Controller {
 		}
 	}
 	
-	public static boolean getExit() {
+	public boolean getExit() {
 		while(true) {
 			String shouldContinue = view.getExit();
 			shouldContinue = shouldContinue.replaceAll("\\s", "").toLowerCase();
@@ -108,7 +108,7 @@ public class Controller {
 		}
 	}
 	
-	public static boolean getRoute(Graph graph) {
+	public boolean getRoute(Graph graph) {
 		LinkedList<Edge> route = graph.getRoute(current, destination);
 		while(true) {
 			String shouldContinue = view.getRouteOption();

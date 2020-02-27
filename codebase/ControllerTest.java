@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 class ControllerTest {
 
-	static Controller controller;
+	Controller controller;
 	@BeforeEach
 	void setUp() {
 		controller = new Controller();
@@ -15,7 +15,7 @@ class ControllerTest {
 	void getStartStationTest() throws Exception
 	{
 		Node expected = new Node("102", "ForestHills");
-		Node actual = Controller.getStartStation();
+		Node actual = controller.getStartStation();
 		
 		assertEquals(expected, actual);
 	}
@@ -24,7 +24,7 @@ class ControllerTest {
 	void getEndStationTest() throws Exception
 	{
 		Node expected = new Node("102", "ForestHills");
-		Node actual = Controller.getStartStation();
+		Node actual = controller.getStartStation();
 		
 		assertEquals(expected, actual);
 	}
@@ -32,8 +32,8 @@ class ControllerTest {
 	@Test
 	void getExitTest() throws Exception
 	{
-		assertFalse(Controller.getExit());
-		assertTrue(Controller.getExit());
+		assertFalse(controller.getExit());
+		assertTrue(controller.getExit());
 	}
 	
 	@Test
