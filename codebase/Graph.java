@@ -189,6 +189,32 @@ public class Graph implements GraphInterface {
 		return stations;
 	}
 	
+	public boolean checkDuplicateNode(String stationName) {
+		stationName = stationName.toLowerCase();
+		int found = 0;
+		for (Map.Entry<Node, ArrayList<Edge>> entry : metroGraph.entrySet()) {
+			if(entry.getKey().getName().toLowerCase().equals(stationName)) {
+				found ++;
+			}
+		}
+		if(found > 1) {
+			return true;
+		}
+		return false;
+	}
+	
+	public Node getNodeByLine(String stationName, String line) {
+		stationName = stationName.toLowerCase();
+		for(Map.Entry<Node, ArrayList<Edge>> entry : metroGraph.entrySet()) {
+			if(entry.getKey().getName().toLowerCase().equals(stationName)){
+				if(metroGraph.get(entry.getKey()).get(0).getLine().toLowerCase().equals(line)) {
+					return entry.getKey();
+				}
+			}
+		}
+		return null;
+	}
+	
 	@Override
 	//checks whether a node with a given station name exists or not
 	public Node getNode(String stationName) {

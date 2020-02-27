@@ -45,27 +45,47 @@ public class Controller {
 	
 	public static Node getStartStation() {
 		while(true) {
+			Node station;
 			String stationName = view.getCurrentNode();
 			stationName = stationName.replaceAll("\\s", "").toLowerCase();
-			Node station = graph.getNode(stationName);
-			if (station != null) {
+			boolean dupe = graph.checkDuplicateNode(stationName);
+			if(dupe) {
+				String line = view.getCurrentLine();
+				line = line.replaceAll("\\s", "").toLowerCase();
+				station = graph.getNodeByLine(stationName, line);
 				return station;
 			}
-			System.out.println(" ");
-			System.out.println("	That station does not exist.");
+			else {
+				station = graph.getNode(stationName);
+				if (station != null) {
+					return station;
+				}
+				System.out.println(" ");
+				System.out.println("	That station does not exist.");
+			}
 		}
 	}
 	
 	public static Node getEndStation() {
 		while(true) {
+			Node station;
 			String stationName = view.getDestination();
 			stationName = stationName.replaceAll("\\s", "").toLowerCase();
-			Node station = graph.getNode(stationName);
-			if (station != null) {
+			boolean dupe = graph.checkDuplicateNode(stationName);
+			if(dupe) {
+				String line = view.getCurrentLine();
+				line = line.replaceAll("\\s", "").toLowerCase();
+				station = graph.getNodeByLine(stationName, line);
 				return station;
 			}
-			System.out.println(" ");
-			System.out.println("	That station does not exist.");
+			else {
+				station = graph.getNode(stationName);
+				if (station != null) {
+					return station;
+				}
+				System.out.println(" ");
+				System.out.println("	That station does not exist.");
+			}
 		}
 	}
 	

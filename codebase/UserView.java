@@ -62,6 +62,17 @@ public class UserView {
 		return answer;
 	}
 	
+	public String getCurrentLine() {
+		String answer = "";
+		System.out.println(" ");
+		System.out.println("	Please enter the line of your current station");
+		System.out.println(" ");
+		if(scanner.hasNextLine()) {
+			answer = scanner.nextLine();
+		}
+		return answer;
+	}
+	
 	public void displayRoute(LinkedList<Edge> route) {
 		String line = route.get(0).getLine();
 		ArrayList<Edge> simpleRoute = new ArrayList<>();
