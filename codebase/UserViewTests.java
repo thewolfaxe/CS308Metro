@@ -39,6 +39,15 @@ class UserViewTests {
 		assertEquals(expectedAnswer, actualAnswer);
 	}
 	
+	@Test
+	void getRouteOption() throws Exception {
+		String expectedAnswer = "yes";
+		InputStream testInput = new ByteArrayInputStream( expectedAnswer.getBytes("UTF-8") );
+		UserView view = new UserView(testInput);
+		String actualAnswer = view.getRouteOption();
+		assertEquals(expectedAnswer, actualAnswer);
+	}
+	
 	
 	
 	

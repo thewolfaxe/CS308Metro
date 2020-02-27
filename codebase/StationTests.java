@@ -12,15 +12,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StationTests
 {
-    List<Station> temp = new ArrayList<>();
+    List<Node> temp = new ArrayList<>();
     @BeforeEach
     void setUp() throws Exception
     {
-        Station alewife = new Station("8", "Alewife");
+        Node alewife = new Node("8", "Alewife");
         temp.add(alewife);
-        Station davis = new Station("7", "Davis");
+        Node davis = new Node("7", "Davis");
         temp.add(davis);
-        Station porter = new Station("10", "Porter");
+        Node porter = new Node("10", "Porter");
         temp.add(porter);
     }
 

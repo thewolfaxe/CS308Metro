@@ -2,20 +2,20 @@ import java.util.*;
 
 public class Graph implements GraphInterface {
 
-	private Map<Station, ArrayList<Track>> metroGraph;
+	private Map<Node, ArrayList<Edge>> metroGraph;
 
-	public Graph(Map<Station, ArrayList<Track>> map) {
+	public Graph(Map<Node, ArrayList<Edge>> map) {
 		metroGraph = new HashMap<>();
 		metroGraph = map;
 	}
 
 	//gets the route the user wants and returns it in a printable way
 	@Override
-	public LinkedList<Track> getRoute(Station start, Station finish) {
-		ArrayList<Station> agenda = new ArrayList<>();				//used to keep track of potential paths
-		HashMap<Station, Station> ancestors = new HashMap<>();		//dictionary used to build paths
+	public LinkedList<Edge> getRoute(Node start, Node finish) {
+		ArrayList<Node> agenda = new ArrayList<>();				//used to keep track of potential paths
+		HashMap<Node, Node> ancestors = new HashMap<>();		//dictionary used to build paths
 		agenda.add(start);		//adding initial station to agenda
-		Station current;
+		Node current;
 
 		while(!agenda.isEmpty()){
 		    int index = agenda.indexOf(findShortest(agenda, ancestors, start));	//find index of shortest path so far
@@ -27,8 +27,8 @@ public class Graph implements GraphInterface {
 			}
 
 			//if current is not the correct station, find adjacent stations and try again
-			ArrayList<Station> temp = getAdjacent(current);
-			for(Station stat: temp) {
+			ArrayList<Node> temp = getAdjacent(current);
+			for(Node stat: temp) {
 				if(!ancestors.containsKey(stat)) {		//only add stations that aren't already in a shorter path
 					ancestors.put(stat, current);
 					agenda.add(stat);
@@ -39,12 +39,12 @@ public class Graph implements GraphInterface {
 	}
 
 	//finds and returns the shortest route from the agenda
-	private Station findShortest(ArrayList<Station> agenda, HashMap<Station, Station> ancestors, Station start) {
+	private Node findShortest(ArrayList<Node> agenda, HashMap<Node, Node> ancestors, Node start) {
 		int best = -1;		//init best
-		Station shortest = agenda.get(0);		//init shortest station as the first in the agenda
+		Node shortest = agenda.get(0);		//init shortest station as the first in the agenda
 
 		//loop through agenda and find the shortest path so far
-		for(Station stat: agenda) {
+		for(Node stat: agenda) {
 			int attempt = pathSoFar(ancestors, stat, start);	//length of the path so far
 			if(attempt < best || best == -1) {
 				best = attempt;
@@ -55,9 +55,9 @@ public class Graph implements GraphInterface {
 	}
 
 	//returns the length of a given path using a dictionary
-	private int pathSoFar(HashMap<Station, Station> ancestors, Station current, Station start) {
+	private int pathSoFar(HashMap<Node, Node> ancestors, Node current, Node start) {
 		int total = 0;
-		Station previous = current;
+		Node previous = current;
 		String line, prevLine = null;
 
 		//find out how long the current route is
@@ -80,9 +80,9 @@ public class Graph implements GraphInterface {
 	}
 
 	//similar to pathSoFar, but just returns the final route as a linked list of tracks
-	private LinkedList<Track> buildRoute(HashMap<Station, Station> ancestors, Station current, Station start) {
+	private LinkedList<Edge> buildRoute(HashMap<Node, Node> ancestors, Node current, Node start) {
 		//first builds up an array of stations
-		ArrayList<Station> route = new ArrayList<>();
+		ArrayList<Node> route = new ArrayList<>();
 		while (current != start) {
 			route.add(current);
 			current = ancestors.get(current);
@@ -93,9 +93,9 @@ public class Graph implements GraphInterface {
 
 		//creates the linked list of tracks for printing in userview
 		//could move up to same loop as above but is here for easier readability
-		LinkedList<Track> linkedRoute = new LinkedList<>();
-		Track track;
-		Station leaving, arriving;
+		LinkedList<Edge> linkedRoute = new LinkedList<>();
+		Edge track;
+		Node leaving, arriving;
 		for(int i = 1; i < route.size(); ++i) {
 			leaving = route.get(i-1);
 			arriving = route.get(i);
@@ -109,8 +109,8 @@ public class Graph implements GraphInterface {
 	}
 
 	//returns an array of tracks connected to a given station
-	public ArrayList<Track> getEdges(Station stat) {
-		for (Map.Entry<Station, ArrayList<Track>> entry : metroGraph.entrySet()) {
+	public ArrayList<Edge> getEdges(Node stat) {
+		for (Map.Entry<Node, ArrayList<Edge>> entry : metroGraph.entrySet()) {
 			if (entry.getKey().getName().equals(stat.getName())) {
 				return metroGraph.get(stat);
 			}
@@ -119,14 +119,17 @@ public class Graph implements GraphInterface {
 	}
 
 	//checks whether or not an edge exits between two stations, returns the edge if it does exist
-	public Track checkEdge(Station stat1, Station stat2) {
+	public Edge checkEdge(Node stat1, Node stat2) {
 		//if the stations are the same return null
-		if(stat1 == stat2)
+		if(stat1.equals(stat2))
 			return null;
 
+		if(metroGraph.get(stat1) == null) {
+			return null;
+		}
 		//checks whether either end of a track as the same id as the second station
-		ArrayList<Track> tracks = metroGraph.get(stat1);
-		for (Track x : tracks) {
+		ArrayList<Edge> tracks = metroGraph.get(stat1);
+		for (Edge x : tracks) {
 			if(x.getRightNode().equals(stat2.getID()) || x.getLeftNode().equals(stat2.getID())) {
 				return x;
 			}
@@ -135,9 +138,9 @@ public class Graph implements GraphInterface {
 	}
 
 	//returns the number of tracks connected to a station
-	public int getDegree(Station Station) {
+	public int getDegree(Node Station) {
 		//returns the number of tracks connection to this station
-		for (Map.Entry<Station, ArrayList<Track>> entry : metroGraph.entrySet()) {
+		for (Map.Entry<Node, ArrayList<Edge>> entry : metroGraph.entrySet()) {
 			if (entry.getKey().getName().equals(Station.getName())) {
 				return metroGraph.get(Station).size();
 			}
@@ -146,9 +149,9 @@ public class Graph implements GraphInterface {
 	}
 
 	//returns an array of stations connected to given station using checkEdge method
-	public ArrayList<Station> getAdjacent(Station stat) {
-		ArrayList<Station> stations = new ArrayList<>();
-		for (Map.Entry<Station, ArrayList<Track>> entry : metroGraph.entrySet()) {
+	public ArrayList<Node> getAdjacent(Node stat) {
+		ArrayList<Node> stations = new ArrayList<>();
+		for (Map.Entry<Node, ArrayList<Edge>> entry : metroGraph.entrySet()) {
 			if (checkEdge(stat, entry.getKey()) != null) {
 				stations.add(entry.getKey());
 			}
@@ -158,8 +161,9 @@ public class Graph implements GraphInterface {
 	
 	@Override
 	//checks whether a node with a given station name exists or not
-	public Station getNode(String stationName) {
-		for (Map.Entry<Station, ArrayList<Track>> entry : metroGraph.entrySet()) {
+	public Node getNode(String stationName) {
+		stationName = stationName.toLowerCase();
+		for (Map.Entry<Node, ArrayList<Edge>> entry : metroGraph.entrySet()) {
 			if(entry.getKey().getName().toLowerCase().equals(stationName)) {
 				return entry.getKey();
 			}

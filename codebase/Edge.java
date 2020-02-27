@@ -1,4 +1,4 @@
-public class Track implements EdgeInterface {
+public class Edge implements EdgeInterface {
 
 	private int weight;
 	private String line;
@@ -7,7 +7,7 @@ public class Track implements EdgeInterface {
 	private String leaving;
 	private String arriving;
 
-	public Track(String line, String leftStationID, String rightStationID, int weight)
+	public Edge(String line, String leftStationID, String rightStationID, int weight)
 	{
 		this.line = line;
 		this.inStationID = leftStationID;
@@ -52,9 +52,9 @@ public class Track implements EdgeInterface {
 	
 	@Override
 	public boolean equals(Object other) {
-		if (!(other instanceof Track))
+		if (!(other instanceof Edge))
 			return false;
-		Track otherTrack = (Track)other;
+		Edge otherTrack = (Edge)other;
 		boolean equal = line.equals(otherTrack.getLine()) &&
 				inStationID.equals(otherTrack.getLeftNode()) &&
 				outStationID.equals(otherTrack.getRightNode()) &&

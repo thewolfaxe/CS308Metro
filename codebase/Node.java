@@ -1,9 +1,9 @@
-public class Station implements NodeInterface {
+public class Node implements NodeInterface {
 	
 	private int weight;
 	private String id, name;
 	
-	public Station(String id, String name)
+	public Node(String id, String name)
 	{
 		this.name = name;
 		this.id = id;
@@ -27,9 +27,9 @@ public class Station implements NodeInterface {
 	
 	@Override
 	public boolean equals(Object other) {
-		if (!(other instanceof Station))
+		if (!(other instanceof Node))
 			return false;
-		Station otherStation = (Station)other;
+		Node otherStation = (Node)other;
 		return id.equals(otherStation.getID()) &&
 				name.equals(otherStation.getName()) &&
 				weight == otherStation.getWeight();

@@ -2,9 +2,9 @@ import java.util.LinkedList;
 
 interface GraphInterface
 {
-    LinkedList<Track> getRoute(Station start, Station finish);
+    LinkedList<Edge> getRoute(Node start, Node finish);
 
-    Track checkEdge(Station stat1, Station stat2);
+    Edge checkEdge(Node stat1, Node stat2);
     
-    Station getNode(String stationName);
+    Node getNode(String stationName);
 }

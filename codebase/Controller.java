@@ -5,8 +5,8 @@ import java.util.Map;
 
 public class Controller {
 	
-	private static Station current;
-	private static Station destination;
+	private static Node current;
+	private static Node destination;
 	private static Graph graph;
 	private static UserView view;
 	
@@ -20,34 +20,52 @@ public class Controller {
 		boolean exit = false;
 		
 		while(!exit) {
-			current = getStation();
-			destination = getStation();
+			current = getStartStation();
+			destination = getEndStation();
 			getRoute(graph);
 			exit = getExit();
 		}
-		System.out.println("Thank you for using this boston metro map search.\nQuitting...");
+		System.out.println(" ");
+		System.out.println("############################################################");
+		System.out.println(" ");
+		System.out.println("	Thank you for using this Boston Metro Route Finder.");
+		System.out.println("			Quitting...");
 	}
 	
 	public void setup() {
-		System.out.println("Setting up graph");
+		view.printSetup();
 		Parser parse = new Parser();
 		try {
-			Map<Station, ArrayList<Track>> metroGraph = parse.loadFile("bostonMetro.txt");
+			Map<Node, ArrayList<Edge>> metroGraph = parse.loadFile("bostonMetro.txt");
 			graph = new Graph(metroGraph);
 		} catch (IOException | BadFileException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static Station getStation() {
+	public static Node getStartStation() {
 		while(true) {
 			String stationName = view.getCurrentNode();
 			stationName = stationName.replaceAll("\\s", "").toLowerCase();
-			Station station = graph.getNode(stationName);
+			Node station = graph.getNode(stationName);
 			if (station != null) {
 				return station;
 			}
-			System.out.println("That station does not exist.");
+			System.out.println(" ");
+			System.out.println("	That station does not exist.");
+		}
+	}
+	
+	public static Node getEndStation() {
+		while(true) {
+			String stationName = view.getDestination();
+			stationName = stationName.replaceAll("\\s", "").toLowerCase();
+			Node station = graph.getNode(stationName);
+			if (station != null) {
+				return station;
+			}
+			System.out.println(" ");
+			System.out.println("	That station does not exist.");
 		}
 	}
 	
@@ -62,13 +80,29 @@ public class Controller {
 				return true;
 			}
 			else {
-				System.out.println("Please enter \"yes\" or \"no\".");
+				System.out.println(" ");
+				System.out.println("	Please enter \"yes\" or \"no\".");
 			}
 		}
 	}
 	
-	public static void getRoute(Graph graph) {
-		LinkedList<Track> route = graph.getRoute(current, destination);
-		view.displayRoute(route);
+	public static boolean getRoute(Graph graph) {
+		LinkedList<Edge> route = graph.getRoute(current, destination);
+		while(true) {
+			String shouldContinue = view.getRouteOption();
+			shouldContinue = shouldContinue.replaceAll("\\s", "").toLowerCase();
+			if (shouldContinue.equals("yes")) {
+				view.displayDetailedRoute(route);
+				return true;
+			}
+			else if (shouldContinue.equals("no")) {
+				view.displayRoute(route);
+				return false;
+			}
+			else {
+				System.out.println(" ");
+				System.out.println("	Please enter \"yes\" or \"no\".");
+			}
+		}
 	}
 }

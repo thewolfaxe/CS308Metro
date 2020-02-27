@@ -8,13 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TrackTests
 {
-    List<Track> temp = new ArrayList<>();
+    List<Edge> temp = new ArrayList<>();
     @BeforeEach
     void setUp() throws Exception
     {
-        temp.add(new Track("Red", "3", "1", 0));
-        temp.add(new Track("Green", "10", "11", 1));
-        temp.add(new Track("Blue", "13", "20", 2));
+        temp.add(new Edge("Red", "3", "1", 0));
+        temp.add(new Edge("Green", "10", "11", 1));
+        temp.add(new Edge("Blue", "13", "20", 2));
 
     }
 
@@ -35,7 +35,7 @@ public class TrackTests
     @Test
     void getWeightTest() throws Exception
     {
-        int expected = 2;
+        int expected = 1;
         int actual = temp.get(2).getWeight();
         assertEquals(expected,actual);
     }
@@ -45,5 +45,21 @@ public class TrackTests
         String expected = "Red";
         String actual = temp.get(0).getLine();
         assertEquals(expected, actual);
+    }
+    @Test
+    void getSetLeavingTest() throws Exception
+    {
+    	String expected = "Ruggles";
+    	temp.get(0).setLeaving(expected);
+    	String actual = temp.get(0).getLeaving();
+    	assertEquals(expected, actual);
+    }
+    @Test
+    void getSetArrivingTest() throws Exception
+    {
+    	String expected = "Ashmont";
+    	temp.get(1).setArriving(expected);
+    	String actual = temp.get(1).getArriving();
+    	assertEquals(expected, actual);
     }
 }
