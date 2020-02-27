@@ -65,7 +65,7 @@ public class UserView {
 	public String getCurrentLine() {
 		String answer = "";
 		System.out.println(" ");
-		System.out.println("	Please enter the line of your current station");
+		System.out.println("	Please enter the line of your intended station");
 		System.out.println(" ");
 		if(scanner.hasNextLine()) {
 			answer = scanner.nextLine();
@@ -99,9 +99,6 @@ public class UserView {
 	}
 	
 	public void displayDetailedRoute(LinkedList<Edge> route) {
-		//display the route by going through the linked list,
-		//apparently this needs to give pretty detailed full sentence
-		//instructions about stations and stuff
 		if(route.size() == 0)
 			System.out.println("\nYou are already at your destination");
 		else {

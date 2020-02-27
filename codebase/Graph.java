@@ -196,7 +196,8 @@ public class Graph implements GraphInterface {
 		}
 		return stations;
 	}
-	
+
+	@Override
 	public boolean checkDuplicateNode(String stationName) {
 		stationName = stationName.toLowerCase();
 		int found = 0;
@@ -207,7 +208,8 @@ public class Graph implements GraphInterface {
 		}
 		return found > 1;
 	}
-	
+
+	@Override
 	public Node getNodeByLine(String stationName, String line) {
 		stationName = stationName.toLowerCase();
 		for(Map.Entry<Node, ArrayList<Edge>> entry : metroGraph.entrySet()) {
