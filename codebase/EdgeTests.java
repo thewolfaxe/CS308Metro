@@ -6,7 +6,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TrackTests
+public class EdgeTests
 {
     List<Edge> temp = new ArrayList<>();
     @BeforeEach
