@@ -91,27 +91,29 @@ public class UserView {
 		//display the route by going through the linked list,
 		//apparently this needs to give pretty detailed full sentence
 		//instructions about stations and stuff
-		String line = route.get(0).getLine();
-		System.out.println(" ");
-		System.out.println("Number of stations on your route: " + (route.size() + 1));
-		System.out.println("Your route is:");
-		System.out.println(" ");
-		System.out.println("Start on " + line + " line:");
-		for(int i = 0; i < route.size() -1; i++) {
-			if(i == route.size() - 2) {
-				System.out.println("Leave: " + route.get(i).getLeaving() + " and go through " + route.get(i).getArriving() + ", on line: " + route.get(i).getLine());
-				System.out.println("Leave: " + route.get(i).getArriving() + " and arrive at " + route.get(i+1).getArriving());
+		if(route.size() == 0)
+			System.out.println("\nYou are already at your destination");
+		else {
+			String line = route.get(0).getLine();
+			System.out.println(" ");
+			System.out.println("Number of stations on your route: " + (route.size() + 1));
+			System.out.println("Your route is:");
+			System.out.println(" ");
+			System.out.println("Start on " + line + " line:");
+			for (int i = 0; i < route.size() - 1; i++) {
+				if (i == route.size() - 2) {
+					System.out.println("Leave: " + route.get(i).getLeaving() + " and go through " + route.get(i).getArriving() + ", on line: " + route.get(i).getLine());
+					System.out.println("Leave: " + route.get(i).getArriving() + " and arrive at " + route.get(i + 1).getArriving());
+				} else if (route.get(i).getLine().equals(route.get(i + 1).getLine())) {
+					System.out.println("Leave: " + route.get(i).getLeaving() + " and go through " + route.get(i).getArriving() + ", on line: " + route.get(i).getLine());
+				} else {
+					System.out.println("Leave: " + route.get(i).getLeaving() + " : on " + route.get(i).getLine() + " line, then change to " + route.get(i + 1).getLine() + " line at " + route.get(i).getArriving());
+					System.out.println(" ");
+					line = route.get(i + 1).getLine();
+					System.out.println("Change to " + line + " line:");
+				}
+
 			}
-			else if(route.get(i).getLine().equals(route.get(i+1).getLine())) {
-				System.out.println("Leave: " + route.get(i).getLeaving() + " and go through " + route.get(i).getArriving() + ", on line: " + route.get(i).getLine());
-			}
-			else {
-				System.out.println("Leave: " + route.get(i).getLeaving() + " : on " + route.get(i).getLine() + " line, then change to " + route.get(i+1).getLine() + " line at " + route.get(i).getArriving());
-				System.out.println(" ");
-				line = route.get(i+1).getLine();
-				System.out.println("Change to " + line + " line:");
-			}
-			
 		}
 	}
 }

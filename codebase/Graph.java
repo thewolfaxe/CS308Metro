@@ -20,7 +20,7 @@ public class Graph implements GraphInterface {
 
 		while(!agenda.isEmpty()){
 		    int index = agenda.indexOf(findShortest(agenda, ancestors, start));	//find index of shortest path so far
-		    current = agenda.remove(index);		//set current and remove object from agenda
+		    current = agenda.remove(index);		//set current node to shortest and remove object from agenda
 
 		    // if the current station is correct , build the path back up and return it
 			if(current == finish) {
@@ -67,8 +67,9 @@ public class Graph implements GraphInterface {
 			++total;
 			current = ancestors.get(current);
 
+			//As this is a multigraph there may be more than one edge going between the same nodes,
+			//this makes sure that it correctly identifies the route with minimal line switches
 			ArrayList<Edge> linePossibility = checkEdge(previous, current);
-
 			if(linePossibility != null)
 				for(Edge track: linePossibility) {
 					if(track.getLine().equals(prevLine)) {
@@ -111,13 +112,15 @@ public class Graph implements GraphInterface {
 		LinkedList<Edge> linkedRoute = new LinkedList<>();
 		Edge track = null, prevTrack = null;
 		Node leaving, arriving;
-		ArrayList<Edge> linePossibility;// = checkEdge(leaving, arriving);
+		ArrayList<Edge> linePossibility;
 
 		for(int i = 1; i < route.size(); ++i) {
 			leaving = route.get(i-1);
 			arriving = route.get(i);
-			linePossibility = checkEdge(leaving, arriving);
 
+			//similar to in pathSoFar(), as we are dealing with a multigraph, we need to make sure
+			//that we pick the right edge between the nodes on our graph
+			linePossibility = checkEdge(leaving, arriving);
 			if(linePossibility != null) {
 				for (Edge trackPoss : linePossibility) {
 					if (prevTrack != null) {
@@ -132,12 +135,17 @@ public class Graph implements GraphInterface {
 					}
 				}
 			} else {
-				System.out.println("FUCK THIS IS BROKEn");
+				System.out.println("This broke in buildRoute() and really shouldn't've");
 			}
-			track.setLeaving(leaving.getName());
-			track.setArriving(arriving.getName());
-			linkedRoute.add(track);
-			prevTrack = track;
+
+			if(track != null) {
+				track.setLeaving(leaving.getName());
+				track.setArriving(arriving.getName());
+				linkedRoute.add(track);
+				prevTrack = track;
+			} else {
+				System.out.println("This really shouldn't show as there is deffo a route at this point");
+			}
 		}
 
 		return linkedRoute;

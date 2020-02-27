@@ -30,6 +30,8 @@ public class Controller {
 		System.out.println(" ");
 		System.out.println("	Thank you for using this Boston Metro Route Finder.");
 		System.out.println("			Quitting...");
+		System.out.println(" ");
+		System.out.println("############################################################");
 	}
 	
 	public void setup() {
