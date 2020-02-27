@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.Map;
@@ -10,12 +11,12 @@ public class Controller {
 	private static Graph graph;
 	private static UserView view;
 	
-	public Controller() {
-		view = new UserView(System.in);
+	public Controller(InputStream input) {
+		view = new UserView(input);
 	}
 	
 	public static void main(String[] args) {
-		Controller controller = new Controller();
+		Controller controller = new Controller(System.in);
 		controller.setup();
 		boolean exit = false;
 		
@@ -34,7 +35,7 @@ public class Controller {
 		System.out.println("############################################################");
 	}
 	
-	public void setup() {
+	public Graph setup() {
 		view.printSetup();
 		Parser parse = new Parser();
 		try {
@@ -43,6 +44,7 @@ public class Controller {
 		} catch (IOException | BadFileException e) {
 			e.printStackTrace();
 		}
+		return graph;
 	}
 	
 	public Node getStartStation() {
@@ -108,18 +110,18 @@ public class Controller {
 		}
 	}
 	
-	public boolean getRoute(Graph graph) {
+	public LinkedList<Edge> getRoute(Graph graph) {
 		LinkedList<Edge> route = graph.getRoute(current, destination);
 		while(true) {
 			String shouldContinue = view.getRouteOption();
 			shouldContinue = shouldContinue.replaceAll("\\s", "").toLowerCase();
 			if (shouldContinue.equals("yes")) {
 				view.displayDetailedRoute(route);
-				return true;
+				return route;
 			}
 			else if (shouldContinue.equals("no")) {
 				view.displayRoute(route);
-				return false;
+				return route;
 			}
 			else {
 				System.out.println(" ");
